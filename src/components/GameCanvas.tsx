@@ -3,7 +3,7 @@ import { useGameLoop } from '../hooks/useGameLoop';
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from '../game/constants';
 
 interface Props {
-  onGameEnd: () => void;
+  onGameEnd: (score: number, hiScore: number) => void;
 }
 
 export function GameCanvas({ onGameEnd }: Props) {

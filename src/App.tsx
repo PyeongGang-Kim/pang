@@ -6,8 +6,14 @@ import { GameOver } from './components/GameOver';
 
 export default function App() {
   const [screen, setScreen] = useState<GameScreen>('menu');
-  const [score] = useState(0);
-  const hiScore = Number(localStorage.getItem('hiScore') || 0);
+  const [finalScore, setFinalScore] = useState(0);
+  const [finalHiScore, setFinalHiScore] = useState(0);
+
+  function handleGameEnd(score: number, hiScore: number) {
+    setFinalScore(score);
+    setFinalHiScore(hiScore);
+    setScreen('gameOver');
+  }
 
   return (
     <div style={containerStyle}>
@@ -15,10 +21,10 @@ export default function App() {
         <MainMenu onStart={() => setScreen('playing')} />
       )}
       {screen === 'playing' && (
-        <GameCanvas onGameEnd={() => setScreen('gameOver')} />
+        <GameCanvas onGameEnd={handleGameEnd} />
       )}
       {screen === 'gameOver' && (
-        <GameOver score={score} hiScore={hiScore} onBack={() => setScreen('menu')} />
+        <GameOver score={finalScore} hiScore={finalHiScore} onBack={() => setScreen('menu')} />
       )}
     </div>
   );
